@@ -94,7 +94,6 @@ The code in this repository is a cleaned and GitHub-ready reconstruction based o
 ## Authors
 
 - Harshitha Ramesh
-- Ankur
 
 ## License
 
