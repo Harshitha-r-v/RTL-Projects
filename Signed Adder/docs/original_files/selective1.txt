@@ -1,0 +1,19 @@
+module selective1( 
+        input [3:0]x,
+        input cmpl_x,
+        output [3:0]out1
+);
+     always@(*) begin
+        if(cmpl_x) begin
+         assign x[3]= ~x[3]; // compliment MSB
+         integer i;
+         for ( i=0; i<=3; i+1) begin
+             x[i] = x[i]^1; // Compliment whole 
+             end
+        assign out1 = x + 1'b1; 
+             end
+      else begin 
+    assign out1 = x;
+      end 
+   end
+endmodule

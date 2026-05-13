@@ -1,0 +1,18 @@
+module signadder(
+      input [3:0]inx,
+      input [3:0]iny,
+      input sign_x,sign_y,add_sub,
+      output [3:0] sum,
+      output sign_s
+);
+     wire [ 3:0] sc_x,result,sc_s;
+     wire cmpl_x, cmpl_s, c_in, c_out, sign;
+   
+     selective1 sc1(.inx(inx),.cmpl_x(cmpl_x),.out1(sc_x));
+     adder a1(.inx(sc_x), .iny(iny), .c_in(c_in), .result(result),.c_out(c_out), .sign(sign));
+     selective sc2(.in1(result),.cmpl_s(cmpl_s),.out2(sc_s));
+     control c(.sign_x(sign_x), .sign_y(sign_y), .add_sub(add_sub), .c_out(c_out), .sign(sign), .sign_s(sign_s), .c_in(c_in),
+                            .cmpl_x(cmpl_x),.cmpl_s(cmpl_s));
+      assign sum =sc_s;
+
+endmodule

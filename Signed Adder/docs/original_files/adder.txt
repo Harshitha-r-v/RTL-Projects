@@ -1,0 +1,25 @@
+module adder(
+        input [3:0]inx,
+        input [3:0]iny,
+        output [3:0]result,
+        output c_out,sign
+);
+  always@(*)begin
+     if (iny[3]==1)begin
+        iny[3]=~iny[3];
+        for( integer i=0, i<=3, i+1)begin
+            assign iny[i]= iny[i] ^ 1;
+        end
+      assign iny= iny + 1'b1;
+        end
+
+   if (c_in) begin
+      for( integer i=0, i<=3, i+1)begin
+            assign iny[i]= iny[i] ^ 1;
+        end
+     end
+     assign {c_out,result}= inx+ iny+ c_in;
+
+      assign sign=result[3];  
+end
+endmodule

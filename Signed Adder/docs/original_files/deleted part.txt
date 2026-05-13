@@ -1,0 +1,72 @@
+cmpls=0; signs=0;
+
+
+
+
+ if(((signy==0) && (addsub==0)) || ((signy==1) && (addsub==1)))begin
+              cin = 0;
+           assign cmplx=0;
+            if (sign==1)begin
+           assign cmpls=1;
+           assign signs=0;
+              end //sign is always 0
+              else begin
+                 cmpls=0;
+                 signs=0;
+            end
+            
+          end
+         else if (((signy==0) && (addsub==1))|| ((signy==1) && (addsub==0)))begin
+               assign cin = 1;
+               assign cmplx=1;
+               if(sign==0) begin
+                   cmpls=1;
+                   signs=1;
+              end
+             else begin
+               assign cmpls=1;
+               assign signs=0; //sign is same as MSB
+              end
+          end
+      end
+    else if(signx==1) begin
+        if(((signy==0) && (addsub==0)) || ((signy==1) && (addsub==1)))begin
+              assign cmplx=1;
+              assign cmpls=0; 
+               assign signs=sign;    // sign is same as MSB 
+               assign cin = 1;
+         end
+        else if(((signy==1) && (addsub==0)) || ((signy==0) && (addsub==1))) begin
+              assign cmplx=0;
+              assign cmpls=1;
+               assign signs=sign;      //sign is same as MSB
+              assign cin = 0;
+        end  
+    end 
+
+
+
+
+
+
+
+ input [4-2:0]x;
+        input [4-2:0]y;
+        input signx, signy,addsub;
+        output [4-2:0]sum;
+        output signs;
+        output overflow;
+
+        wire cout,sign;
+       wire cin,cmplx,cmpls;
+       wire [4-1:0] inx,iny;
+       wire [4-1:0] scx;
+       wire [4-1:0] tempsum;
+  
+      preprocess p1(.x(x),.outx(inx));
+      preprocess p2(.x(y),.outx(iny));
+      ///newcontrol c1(.signx(signx),.signy(signy),.addsub(addsub),.cout(cout),.sign(sign),.cin(cin),.cmplx(cmplx),.cmpls(cmpls),.signs(signs),.overflow(overflow));
+      selectcmplone s1(.x(inx),.cmplx(cmplx),.inx(scx));
+      newadder a1(.inx(scx),.iny(iny),.cin(cin),.sum(tempsum),.cout(cout),.sign(sign));
+      newcontrol c1(.signx(signx),.signy(signy),.addsub(addsub),.cout(cout),.sign(sign),.cin(cin),.cmplx(cmplx),.cmpls(cmpls),.signs(signs),.overflow(overflow));
+      selectcmpltwo s2(.sum(tempsum),.cmpls(cmpls),.outs(sum));

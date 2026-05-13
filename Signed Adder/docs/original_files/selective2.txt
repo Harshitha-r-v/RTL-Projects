@@ -1,0 +1,20 @@
+module selective2(
+   input [3:0]y,
+        input cmpl_s,
+        output [3:0]out2
+);
+     always@(*) begin
+        if(cmpl_s) begin
+         assign y[3]= y[3]- 1'b1; // compliment MSB
+         integer i;
+         for ( i=0; i<=3; i+1) begin
+             y[i] = y[i]^1; // Compliment whole 
+             end
+        assign out2 = y; 
+             end
+      else begin 
+    assign out2 = y;
+      end 
+   end
+endmodule
+   

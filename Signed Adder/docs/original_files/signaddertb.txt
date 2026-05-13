@@ -1,0 +1,28 @@
+module signaddertb();
+reg [4-2:0]x;
+   reg [4-2:0]y;
+   reg sign_x,sign_y,add_sub;
+   wire [4-2:0]sum;
+   wire sign_s;
+   wire overflow;
+  signadder sa(.x(x),.y(y),.sign_x(sign_x),.sign_y(sign_y),.add_sub(add_sub),.sum(sum),
+             .sign_s(sign_s),.overflow(overflow));
+ //reg [4-2:0]x;
+//reg [4-2:0]y;
+ //reg  sign_x,sign_y,add_sub;
+
+initial begin 
+ x=3'b100;   y=3'b011 ;   sign_x = 0;  sign_y =0; add_sub=0;
+ x=3'b100; y=3'b011 ; sign_x = 1; sign_y =0; add_sub=0;
+ x=3'b100; y=3'b011 ; sign_x = 0; sign_y =1; add_sub=0;
+ x=3'b100; y=3'b011 ; sign_x = 1; sign_y =1; add_sub=0;
+ x=3'b100; y=3'b011 ; sign_x = 0; sign_y =0; add_sub=1;
+ x=3'b100; y=3'b011 ; sign_x = 1; sign_y =0; add_sub=1;
+ x=3'b100; y=3'b011 ; sign_x = 0; sign_y =1; add_sub=1;
+ x=3'b100; y=3'b011 ; sign_x = 1; sign_y =1; add_sub=1;
+ end
+initial begin
+$monitor("x=%b, y=%b, sign_x=%b, sign_y=%b, add_sub=%b, sum=%b, sign_s=%b, overflow=%b\n", x, y, sign_x, sign_y, add_sub, sum, sign_s, overflow);
+$display("x=%b, y=%b, sign_x=%b, sign_y=%b, add_sub=%b, sum=%b, sign_s=%b, overflow=%b\n", x, y, sign_x, sign_y, add_sub, sum, sign_s, overflow);
+end
+endmodule

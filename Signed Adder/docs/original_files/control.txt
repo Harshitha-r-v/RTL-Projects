@@ -1,0 +1,32 @@
+module control(
+      input sign_x, sign_y,add_sub,
+      output sign_s
+);
+     wire c_out, sign;
+     wire c_in, cmpl_x, cmpl_s;
+
+  always@(*)begin
+   if (sign_x) begin
+    assign cmpl_x=1;
+    end
+  else begin 
+    assign cmpl_x=0;
+  end
+  selective1 sc1(.cmpl_x(cmpl_x));
+   if (add_sub) begin
+   assign c_in= 1;
+  end
+  else begin
+ assign c_in=0;
+  end
+ adder a1(.c_in(c_in),.c_out(c_out),.sign(sign));
+  
+if(sign) begin
+ assign cmpl_s =1;
+end
+ selective2 sc2(.cmpl_s(cmpl_s));
+
+assign sign_s= sign;
+
+end
+endmodule
